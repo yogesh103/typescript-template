@@ -16,10 +16,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
-      - name: Install yarn
-        run: npm install -g yarn
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm install --frozen-lockfile
         shell: bash
       - name: Lint Project
-        run: yarn lint --quiet
+        run: npm lint --quiet
