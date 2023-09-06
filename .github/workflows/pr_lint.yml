@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: '12'
       - name: Install dependencies
-        run: npm install --frozen-lockfile
+        run: npm ci
         shell: bash
       - name: Lint Project
-        run: npm lint --quiet
+        run: npm run lint
