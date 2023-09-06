@@ -1,0 +1,91 @@
+{
+  "labels": {
+    "fix": {
+      "name": "fix",
+      "colour": "6d64d1",
+      "description": "Bug reports or related issues and fixes"
+    },
+    "breaking change": {
+      "name": "breaking change",
+      "colour": "db6d4e",
+      "description": "Breaking API changes"
+    },
+    "enhancement": {
+      "name": "enhancement",
+      "colour": "235d93",
+      "description": "For PRs that satisfy feature requests or improve the package"
+    },
+    "feature request": {
+      "name": "feature request",
+      "colour": "cc317c",
+      "description": "New feature requests"
+    },
+    "needs review": {
+      "name": "needs review",
+      "colour": "fbca04",
+      "description": "Issues that need review by a maintainer"
+    },
+    "documentation": {
+      "name": "documentation",
+      "colour": "faee33",
+      "description": "A documentation issue or request"
+    }
+  },
+
+  "pr": {
+    "fix": {
+      "requires": 2,
+      "conditions": [
+        {
+          "type": "titleMatches",
+          "pattern": "^fix.*"
+        }
+      ]
+    }, 
+    "breaking change": {
+      "requires": 2,
+      "conditions": [
+        {
+          "type": "titleMatches",
+          "pattern": "^break.*"
+        }
+      ]
+    }, 
+    "enhancement": {
+      "requires": 2,
+      "conditions": [
+        {
+          "type": "titleMatches",
+          "pattern": "^enhance.*"
+        }
+      ]
+    }, 
+    "feature request": {
+      "requires": 2,
+      "conditions": [
+        {
+          "type": "titleMatches",
+          "pattern": "^feat.*"
+        }
+      ]
+    }, 
+    "needs review": {
+      "requires": 2,
+      "conditions": [
+        {
+          "type": "titleMatches",
+          "pattern": "^review.*"
+        }
+      ]
+    }, 
+    "documentation": {
+      "requires": 2,
+      "conditions": [
+        {
+          "type": "titleMatches",
+          "pattern": "^docs.*"
+        }
+      ]
+    }
+  }
+}

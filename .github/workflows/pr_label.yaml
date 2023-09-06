@@ -1,0 +1,24 @@
+name: Apply PR labels
+on:
+ pull_request:
+    types: [opened, edited, closed, reopened, ready_for_review, synchronize]
+jobs:
+  size-label:
+    runs-on: ubuntu-latest
+    name: Add size label
+    steps:
+      - name: size-label
+        uses: "pascalgn/size-label-action@v0.4.3"
+        # uses: "pascalgn/size-label-action@ee2c1d869559066f4c5242f20c658e402e937e73"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
+          # IGNORED: ".*\n!.gitignore\nyarn.lock\ngenerated/**\ndocs/**\n" 
+          IGNORED: ".*\n!.gitignore\nyarn.lock\ngenerated/**"
+  label:
+    runs-on: ubuntu-latest
+    name: Label issues and pull requests
+    steps:
+      - uses: actions/checkout@v2
+      - uses: IvanFon/super-labeler-action@v1
+        with:
+          github-token: '${{ secrets.GH_TOKEN }}'

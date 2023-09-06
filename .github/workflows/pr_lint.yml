@@ -1,0 +1,25 @@
+name: PR Linter
+on:
+  pull_request:
+      types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - 'main'
+env:
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+jobs:
+  Lint:
+    name: eslint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - name: Install yarn
+        run: npm install -g yarn
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        shell: bash
+      - name: Lint Project
+        run: yarn lint --quiet

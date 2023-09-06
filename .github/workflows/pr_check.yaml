@@ -1,0 +1,42 @@
+name: PR Check
+on:
+  pull_request:
+      types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - 'main'
+env:
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+  NODE_VERSION: '12'
+  NODE_OPTIONS: --max-old-space-size=6144
+  CACHE_KEY: ${{ github.repository }}-${{ github.ref }}-${{ github.event.pull_request.number }}-${{ github.event.pull_request.head.sha || github.sha }}
+
+concurrency:
+  group: ${{ github.repository }}-${{github.event.pull_request.number || github.ref}}-${{github.workflow}}
+  cancel-in-progress: true
+
+jobs:
+  # This job name is also depended upon by the other pr_check_*.yml workflows
+  Prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{env.NODE_VERSION}}
+          cache: 'yarn'
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          key: ${{ env.CACHE_KEY }}
+          restore-keys: |
+            ${{ github.repository }}-${{ github.ref }}-${{ github.event.pull_request.number }}-
+            ${{ github.repository }}-${{ github.ref }}-
+            ${{ github.repository }}-
+          path: |
+            ./dist/
+      - name: Install yarn
+        run: yarn install 
+      - name: Build yarn
+        run: yarn build
